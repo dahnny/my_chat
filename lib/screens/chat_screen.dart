@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_chat/widgets/auth/chat/messages.dart';
+import 'package:my_chat/widgets/auth/chat/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -39,34 +41,17 @@ class ChatScreen extends StatelessWidget {
         ],
       ),
 //      This builds a stream that allows firebase talk directly with our app
-      body: StreamBuilder(
-          stream: Firestore.instance
-              .collection('chats/wZdXpkQ3z1KzZKOjNcRm/messages')
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-//            getting the documents in a collection
-            final documents = snapshot.data.documents;
-            return ListView.builder(
-              itemCount: documents.length,
-              itemBuilder: (ctx, index) => Container(
-                padding: EdgeInsets.all(8),
-                child: Text(documents[index]['text']),
-              ),
-            );
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Firestore.instance
-              .collection('chats/wZdXpkQ3z1KzZKOjNcRm/messages')
-              .add({'text': 'This was added by clicking the button'});
-        },
-        child: Icon(Icons.add),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Messages(),
+            ),
+            NewMessage(),
+          ],
+        ),
       ),
+
     );
   }
 }
