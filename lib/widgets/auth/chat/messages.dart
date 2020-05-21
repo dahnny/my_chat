@@ -27,6 +27,7 @@ class Messages extends StatelessWidget {
                   itemBuilder: (ctx, index) => MessageBubble(
 //                    This gets the documents with a text key
                     chatDocs[index]['text'],
+                    chatDocs[index]['userName'],
 //                    This sets the key userId to the current user UID
                     chatDocs[index]['userId'] == futureSnapshot.data.uid,
 //                    used to efficiently update the list
