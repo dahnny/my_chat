@@ -17,7 +17,8 @@ class _PickImageState extends State<PickImage> {
 
   void _pickImage() async {
     final pickedUserImage =
-        await ImagePicker.pickImage(source: ImageSource.camera);
+//    the image quality is to reduce the image quality by half
+        await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 150);
     setState(() {
       _pickedImage = pickedUserImage;
     });

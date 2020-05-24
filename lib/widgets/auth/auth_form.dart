@@ -5,7 +5,7 @@ import 'package:my_chat/widgets/auth/pickers/pick_image.dart';
 
 class AuthForm extends StatefulWidget {
   final bool _isLoading;
-  final void Function(String email, String userName, String password,
+  final void Function(String email, String userName, File image, String password,
       bool isLogin, BuildContext context) submitFn;
 
   AuthForm(this.submitFn, this._isLoading);
@@ -37,7 +37,7 @@ class _AuthFormState extends State<AuthForm> {
     }
     if (isValid) {
       _formKey.currentState.save();
-      widget.submitFn(_emailAddress.trim(), _userName.trim(), _password.trim(),
+      widget.submitFn(_emailAddress.trim(), _userName.trim(), _userImageFile, _password.trim(),
           _isLogin, context);
     }
   }
@@ -59,6 +59,7 @@ class _AuthFormState extends State<AuthForm> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+//                    if in login mode call the pickImage function
                     if (!_isLogin) PickImage(_pickedImage),
                     TextFormField(
                       key: ValueKey('email'),
